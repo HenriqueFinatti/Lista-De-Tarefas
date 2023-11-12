@@ -12,7 +12,7 @@ int main() {
     //While True para que o usuario tenha controle aos acessos com agilidade e eficiencia
     while (1) {
         // Apresenta um menu de opções ao usuário
-        printf("\n1. Criar tarefas \n2. Deletar tarefas\n3. Listar suas tarefas\n4. Sair do controle de tarefas\n---------------------------\nInsira o numero da operacao desejada:  ");
+        printf("\n1. Criar tarefas \n2. Deletar tarefas\n3. Listar suas tarefas\n4. Alterar Tarefas\n 5. Sair do controle de tarefas\n---------------------------\nInsira o numero da operacao desejada:  ");
         scanf("%d", &escolha);
 
         //Switch case é usado para menu de opções na qual o programa le a escolha do usuario.
@@ -38,14 +38,18 @@ int main() {
 
                 //Cao seja 3, exibe uma mensagem de boas vindas e chama a função de listar tarefa, passando o tamanho atual da lista de terefas e o array de tarefas
             case(3):
-                printf("\nBem vindo a lista de tarefas %d\n", tam);
+                printf("\nBem vindo a lista de tarefas \n");
                 ordena(tam, tarefas);
                 lista_tarefas(tam, tarefas); // Chama a função para listar as tarefas
                 break;
 
                 //Caso seja 4, dizemos tchau e a variavel chek passa como 1 para sair do loop.
             case(4):
-
+                printf("Bem Vindo a Alterar Tarefas\n");
+                int numero;
+                printf("Insira o numero da tarefa que deseja alterar: ");
+                scanf("%d", &numero);
+                altera_tarefa(tarefas, numero);
                 break;
             case(5):
                 printf("\nTchau :)\n");

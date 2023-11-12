@@ -248,6 +248,64 @@ void deleta_tarefa(int *tam,  lista *tarefas, int numero_tarefa) {
     printf("Tarefa numero %d foi deletada com sucesso.\n", numero_tarefa);
 }
 
-void altera_tarefa( lista *tarefas, int numero_tarefa)
+void altera_tarefa( lista *tarefas, int numero_tarefa){
+    int op;
+
+    printf("-----------------------\n");
+    printf("Tarefa: %d\n", numero_tarefa);
+    printf("Prioridade: %d\n", tarefas[numero_tarefa-1].prioridade);
+    printf("Categoria: %s\n", tarefas[numero_tarefa-1].categoria);
+    printf("Descricao: %s\n", tarefas[numero_tarefa-1].descricao);
+    printf("Estado: ");
+    switch (tarefas[numero_tarefa-1].estado) {
+        case 1:
+            printf("Nao Iniciado");
+            break;
+        case 2:
+            printf("Em Andamento");
+            break;
+        default:
+            printf("Completa");
+            break;
+    }
+    printf("\n");
+    printf("-----------------------\n");
+    printf("Qual destes itens deseja alterar ?\n");
+    printf("1. Prioridade \n2. Categoria\n3. Descricao\n4. Estado\n");
+    scanf("%d", &op);
+    limpa();
+
+    int escolha;
+    char temp[300];
+    switch (op) {
+        case 1:
+            printf("Insira a nova prioridade: (numero de 1 - 10)");
+            scanf("%d", &escolha);
+            limpa();
+            tarefas[numero_tarefa-1].prioridade = escolha;
+        case 2:
+            printf("Insira a nova Categoria: ");
+            scanf("%s", temp);
+            limpa();
+
+            strcpy(tarefas[numero_tarefa-1].categoria, temp);
+
+        case 3:
+            printf("Insira a nova Descricao: ");
+            scanf("%d", &escolha);
+            limpa();
+
+            strcpy(tarefas[numero_tarefa-1].descricao, temp);
+
+        case 4:
+            printf("Insira o novo estado: (1 - nao iniciado / 2 - em andamento / 3 - Completo):");
+            scanf("%d", &escolha);
+            limpa();
+
+            tarefas[numero_tarefa-1].estado = escolha;
+    }
+
+
+}
 
 
