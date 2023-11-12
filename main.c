@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "biblioteca.h"
+#include "biblioteca_aux.h"
+
 lista tarefas[100];
 
 int main() {

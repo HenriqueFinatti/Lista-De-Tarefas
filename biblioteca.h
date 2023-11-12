@@ -12,10 +12,7 @@ typedef struct {
 
 void cria_tarefa( lista *tarefas);
 void lista_tarefas(int tam,  lista *tarefas);
-int tamanho( lista *tarefas);
-void escreve(int tam,  lista *tarefas);
 void deleta_tarefa(int *tam,  lista *tarefas, int numero_tarefa);
-void ordena(int tam,  lista *tarefas);
 void altera_tarefa( lista *tarefas, int numero_tarefa);
 
 #endif //LISTA_DE_TAREFAS_BIBLIOTECA_H
