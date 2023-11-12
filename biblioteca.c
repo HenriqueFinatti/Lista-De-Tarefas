@@ -83,13 +83,26 @@ void cria_tarefa(lista *tarefas) {
 
 void lista_tarefas(int tam,  lista *tarefas){
 
-    for(int i = 0; i < tam; i++){
-        printf("<--------------------->\n");
-        printf("Tarefa %d\n\n", i+1);
-        printf("Prioridade: %d\n",tarefas[i].prioridade);
-        printf("Categoria: %s\n",tarefas[i].categoria );
-        printf("Descricao: %s\n",tarefas[i].descricao);
-        printaEstado(tarefas[i].estado);
+    int op1 = 0, op2;
+    printf("Deseja adicionar um filtro ? (1 - sim / 0 - nao)");
+    scanf("%d", &op1);
+    if(op1){
+        printf("Deseja filtar por:\n");
+        printf("1. Prioridade\n");
+        printf("2. Categoria");
+        printf("3. Estado");
+        printf("4. Prioridade e Categoria");
+        scanf("%d", &op2);
+    } else {
+
+        for (int i = 0; i < tam; i++) {
+            printf("<--------------------->\n");
+            printf("Tarefa %d\n\n", i + 1);
+            printf("Prioridade: %d\n", tarefas[i].prioridade);
+            printf("Categoria: %s\n", tarefas[i].categoria);
+            printf("Descricao: %s\n", tarefas[i].descricao);
+            printaEstado(tarefas[i].estado);
+        }
     }
 }
 
