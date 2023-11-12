@@ -1,6 +1,7 @@
 #include "biblioteca.h"
 #include <stdio.h>
 #include <string.h>
+char nome_do_arquivo[20] = "lista_de_tarefas";
 void limpa(){ // Função para limpar o buffer de entrada
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {} //
@@ -22,12 +23,114 @@ void printaEstado(int estado){
     }
     printf("\n\n<--------------------->\n");
 }
+void printa(int ind, lista *tarefas, int estado){
+
+    FILE *arquivo = fopen("lista.txt", "a"); // Abre o arquivo para escrita
+
+    fprintf(arquivo, "-------------------------\n"); // Imprime uma linha divisória no arquivo
+
+    fprintf(arquivo, "Tarefa %d:\n", ind + 1); // Imprime o número da transação no arquivo
+
+    fprintf(arquivo, "Prioridade: %d\n", tarefas[ind].prioridade); // Imprime a descrição da transação no arquivo
+    fprintf(arquivo, "Categoria: %s\n", tarefas[ind].categoria);
+    fprintf(arquivo, "Descricao: %s\n", tarefas[ind].descricao);
+
+    fprintf(arquivo, "Estado: ");
+    switch (tarefas[ind].estado) {
+        case 1:
+            fprintf(arquivo,"Nao Iniciado");
+            break;
+        case 2:
+            fprintf(arquivo, "Em Andamento");
+            break;
+        default:
+            fprintf(arquivo,"Completa");
+            break;
+    }
+    fprintf(arquivo, "\n\n<--------------------->\n");
+    fclose(arquivo);
+
+    printf("Informações inseridas no txt");
+}
+void filtros(int op, int tam, lista *tarefas){
+
+    if(op == 1) {
+        int escolha, op1, op2;
+
+        printf("Gostaria de estabelecer um intervalo de prioridade? (1 - sim/ 0 - nao)\n");
+        scanf("%d", &escolha);
+        limpa();
+        if (escolha == 1) {
+            printf("Insira o inicio do intervalo de prioridade: ");
+            scanf("%d", &op1);
+            limpa();
+            printf("Insira o fim do intervalo de prioridade: ");
+            scanf("%d", &op2);
+            limpa();
+            for (int i = 0; i < tam; i++) {
+                if(tarefas[i].prioridade >= op1 && op2 >= tarefas[i].prioridade){
+                    printa(i, tarefas, tarefas[i].estado);
+                }
+            }
+        }
+        else
+        {
+            printf("Insira a prioridade: ");
+            scanf("%d", &op1);
+            limpa();
+            for (int i = 0; i < tam; i++) {
+                if(tarefas[i].prioridade == op1){
+                    printa(i, tarefas, tarefas[i].estado);
+                }
+            }
+        }
+    }
+    else if(op == 2){
+        char cat[20];
+        printf("Insira a categoria que gostaria de filtrar: ");
+        scanf("%s", cat);
+        limpa();
+
+        for (int i = 0; i < tam; i++) {
+            if(strncmp(cat, tarefas[i].categoria, 21) == 0){
+                printa(i, tarefas, tarefas[i].estado);
+            }
+        }
+    }
+    else if(op ==3){
+        int op1;
+
+        printf("Insira o estado de tarefas que deseja acessar: (1 - Nao Iniciado / 2 - Em andamento / 3 - Completo\n");
+        scanf("%d", &op1);
+        limpa();
+        for (int i = 0; i < tam; i++) {
+            if(tarefas[i].estado == op1){
+                printa(i, tarefas, tarefas[i].estado);
+            }
+        }
+    } else{
+        int op1;
+        char cat[20];
+
+        printf("Insira a prioridade: ");
+        scanf("%d", &op1);
+        limpa();
+        printf("Insira a categoria: ");
+        scanf("%s", cat);
+        limpa();
+        for (int i = 0; i < tam; i++) {
+            if(tarefas[i].prioridade == op1 && strncmp(cat, tarefas[i].categoria, 21) == 0){
+                printa(i, tarefas, tarefas[i].estado);
+            }
+        }
+    }
+}
 void ordena(int tam,  lista *tarefas){
     lista temporario[1];
 
     for(int j = 0; j < tam; j++){
         for(int i = 0; i < tam; i++){
-            if(tarefas[j].prioridade < tarefas[i].prioridade){
+            if(tarefas[j].prioridade > tarefas[i].prioridade){
                 temporario[0].prioridade = tarefas[j].prioridade;
                 strcpy(temporario[0].descricao, tarefas[j].descricao);
                 strcpy(temporario[0].descricao, tarefas[j].descricao);
@@ -83,25 +186,23 @@ void cria_tarefa(lista *tarefas) {
 
 void lista_tarefas(int tam,  lista *tarefas){
 
-    int op1 = 0, op2;
+    int op1 = 0;
     printf("Deseja adicionar um filtro ? (1 - sim / 0 - nao)");
     scanf("%d", &op1);
+    limpa();
     if(op1){
+        int op2 = 0;
         printf("Deseja filtar por:\n");
         printf("1. Prioridade\n");
-        printf("2. Categoria");
-        printf("3. Estado");
-        printf("4. Prioridade e Categoria");
+        printf("2. Categoria\n");
+        printf("3. Estado\n");
+        printf("4. Prioridade e Categoria\n");
         scanf("%d", &op2);
+        limpa();
+        filtros(op2, tam, tarefas);
     } else {
-
         for (int i = 0; i < tam; i++) {
-            printf("<--------------------->\n");
-            printf("Tarefa %d\n\n", i + 1);
-            printf("Prioridade: %d\n", tarefas[i].prioridade);
-            printf("Categoria: %s\n", tarefas[i].categoria);
-            printf("Descricao: %s\n", tarefas[i].descricao);
-            printaEstado(tarefas[i].estado);
+            printa(i, tarefas, tarefas[i].estado);
         }
     }
 }
@@ -146,5 +247,7 @@ void deleta_tarefa(int *tam,  lista *tarefas, int numero_tarefa) {
     (*tam)--;
     printf("Tarefa numero %d foi deletada com sucesso.\n", numero_tarefa);
 }
+
+void altera_tarefa( lista *tarefas, int numero_tarefa)
 
 

@@ -45,6 +45,9 @@ int main() {
 
                 //Caso seja 4, dizemos tchau e a variavel chek passa como 1 para sair do loop.
             case(4):
+
+                break;
+            case(5):
                 printf("\nTchau :)\n");
                 ordena(tam, tarefas);
                 escreve(tam, tarefas); // Chama a função para escrever as tarefas em um arquivo e encerra o programa
