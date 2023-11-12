@@ -8,4 +8,5 @@ include_directories(.)
 add_executable(Lista_De_Tarefas
         biblioteca.c
         biblioteca.h
-        main.c)
+        main.c
+        biblioteca_aux.c)

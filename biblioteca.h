@@ -5,10 +5,11 @@ typedef struct {
     int prioridade; //inteiro que representa a prioridade da tarefa
     char categoria[300]; //  array de caractere com espaço para 300 char que armazena a categoria.
     char descricao[100]; // outro array de caractere com espaço de 100, na qual armazena a descrição da tarefa
-    int estado;
+    int estado; //Estado inicial da tarefa
 }lista;
 
-//Aqui sao definidas as funções que serão definidas no arquivo .c
+//Declaro as funções do arquivo "biblioteca.c"
+
 
 void cria_tarefa( lista *tarefas);
 void lista_tarefas(int tam,  lista *tarefas);
