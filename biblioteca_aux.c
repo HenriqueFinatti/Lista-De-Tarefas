@@ -43,7 +43,7 @@ void ordena(int tam,  lista *tarefas){
     //Ordena cada item da struct em ordem crescente
     for(int j = 0; j < tam; j++){
         for(int i = 0; i < tam; i++){
-            if(tarefas[j].prioridade > tarefas[i].prioridade){
+            if(tarefas[j].prioridade < tarefas[i].prioridade){
                 temporario[0].prioridade = tarefas[j].prioridade;
                 strcpy(temporario[0].descricao, tarefas[j].descricao);
                 strcpy(temporario[0].descricao, tarefas[j].descricao);
