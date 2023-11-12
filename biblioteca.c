@@ -1,29 +1,14 @@
 #include "biblioteca.h"
 #include <stdio.h>
 #include <string.h>
-char nome_do_arquivo[20] = "lista_de_tarefas";
+
+
 void limpa(){ // Função para limpar o buffer de entrada
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {} //
 }
 
-void printaEstado(int estado){
-
-    printf("Estado: ");
-    switch (estado) {
-        case 1:
-            printf("Nao Iniciado");
-            break;
-        case 2:
-            printf("Em Andamento");
-            break;
-        default:
-            printf("Completa");
-            break;
-    }
-    printf("\n\n<--------------------->\n");
-}
-void printa(int ind, lista *tarefas, int estado){
+void printa(int ind, lista *tarefas){
 
     FILE *arquivo = fopen("lista.txt", "a"); // Abre o arquivo para escrita
 
@@ -283,19 +268,23 @@ void altera_tarefa( lista *tarefas, int numero_tarefa){
             scanf("%d", &escolha);
             limpa();
             tarefas[numero_tarefa-1].prioridade = escolha;
+            break;
         case 2:
             printf("Insira a nova Categoria: ");
             scanf("%s", temp);
             limpa();
 
             strcpy(tarefas[numero_tarefa-1].categoria, temp);
+            break;
+
 
         case 3:
             printf("Insira a nova Descricao: ");
-            scanf("%d", &escolha);
+            scanf("%s", temp);
             limpa();
 
             strcpy(tarefas[numero_tarefa-1].descricao, temp);
+            break;
 
         case 4:
             printf("Insira o novo estado: (1 - nao iniciado / 2 - em andamento / 3 - Completo):");
@@ -303,6 +292,8 @@ void altera_tarefa( lista *tarefas, int numero_tarefa){
             limpa();
 
             tarefas[numero_tarefa-1].estado = escolha;
+            break;
+
     }
 
 
